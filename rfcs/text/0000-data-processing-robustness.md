@@ -48,16 +48,28 @@ In order to create a robust and resilient system, it is critical that DCP compon
 
 ## Detailed Design
 
-As part of normal operations, all components in the system are responsible for:
-- Skipping the processing of experimental data when it is erroneous or unexpected, rather than failing.
-- Capturing errors in a way that can be analyzed and corrected at a later date.
-- Supporting mechanisms to reprocessing data that was skipped when the problems are corrected.
-- Ensuring the completeness and consistency of data produced.
+In this RFC, we propose two main strategies for making changes across the DCP that will ensure greater reliability and predictability of data processing. These strategies will reduce coupling between components, providing the opportunity for development teams to react in a controlled, planned manner whenever data is encountered that fails to meet the assumptions or expectations of DCP software components.
 
-These requirements can be summarized as:
-1. *log and continue*
-2. *recover after repair*
-3. *define completeness*
+The proposed strategies are:
+1. *Log and Continue*
+2. *Repair and Recover*
+
+### Log and Continue
+
+DCP components declare their expectations of any data they receive (see Arathi's metadata RFC)
+
+DCP components ignore data they retrieve if it is mismatched against their expectations (e.g. bundles contain unrecognised file formats such as PDFs)
+
+DCP components skip processing of data and fail gracefully when they encounter an error, rather than crashing out.
+
+DCP components report correct error statuses (e.g. via HTTP response codes) to dependent
+
+
+### Repair and Recover
+
+DCP components include operator admin functions to manually trigger automated steps that may have failed
+
+In case of errors that causes some data to be skipped, DCP components ensure that all data expected to be handled together (e.g. all data from a single project) complete before making some of the data available
 
 
 ### Unresolved Questions
