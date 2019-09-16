@@ -95,7 +95,9 @@ A bundle is a unit of data organization, roughly equivalent to a folder or direc
 defined as either a transactional grouping of files that belong together for scientific reasons, or a useful association
 between a set of files for utility purposes.
 
-* Data bundles contain the results of a single data transaction. They can be viewed as the digital equivalent of an
+* A bundle contains the results of a single transaction.  All files that in the bundle are guaranteed to be added or updated atomically.  The bundle UUID plus version provides a transaction id.
+
+* A data bundle is an output of work. They can be viewed as the digital equivalent of an
   "instrument run" - a quantity of data gathered from a single process instance. Data bundles are annotated with
   metadata using a procedure designed by the metadata team.
 
